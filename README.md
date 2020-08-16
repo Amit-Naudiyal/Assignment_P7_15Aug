@@ -58,7 +58,7 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 				Write out database with 1 new entries
 				Data Base Updated
 
-		- generate the client-side certificate and key: (WILL BE PERFORMED FOR EACH USER)
+		- generate the client-side certificate and key: (WILL BE PERFORMED FOR EACH USER: a_naudiyal, r_kumar & p_patel)
 		
 			$ ./easyrsa build-client-full a_naudiyal.adu.directory.com nopass
 			$ ./easyrsa build-client-full r_kumar.adu.directory.com nopass
@@ -91,12 +91,13 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 
 	- Upload the server certificate & key and the client certificate & key to ACM.
 
+		```
 		$ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt --region us-east-1
 
 		$ aws acm import-certificate --certificate fileb://a_naudiyal.adu.directory.com.crt --private-key fileb://a_naudiyal.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1
 		$ aws acm import-certificate --certificate fileb://r_kumar.adu.directory.com.crt --private-key fileb://r_kumar.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1
 		$ aws acm import-certificate --certificate fileb://p_patel.adu.directory.com.crt --private-key fileb://p_patel.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1		
-
+		```
 
 
 ### Create AWS managed Microsoft Active Directory:
