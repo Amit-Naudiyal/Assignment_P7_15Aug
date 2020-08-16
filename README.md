@@ -42,7 +42,6 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 ```
 		- generate the server-side certificate and key:
 
-```
 			$ ./easyrsa build-server-full server nopass
 
 				Using SSL: openssl LibreSSL 2.8.3
@@ -60,10 +59,10 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 
 				Write out database with 1 new entries
 				Data Base Updated
-```
+
 		- generate the client-side certificate and key: (WILL BE PERFORMED FOR EACH USER)
 
-```			
+		
 			$ ./easyrsa build-client-full a_naudiyal.adu.directory.com nopass
 			$ ./easyrsa build-client-full r_kumar.adu.directory.com nopass
 			$ ./easyrsa build-client-full p_patel.adu.directory.com nopass
@@ -75,10 +74,9 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 				commonName            :ASN.1 12:'p_patel.adu.directory.com'
 				Certificate is to be certified until Nov 18 16:30:09 2022 GMT (825 days)
 				.....
-```
+
 	- Copy the server certificate and key & client certificate(s) and Key to a custom folder, for easy usage for next command.
 
-```
 			$ mkdir custom_folder/
 			$ cp pki/ca.crt custom_folder/
 			$ cp pki/issued/server.crt custom_folder/
@@ -93,16 +91,15 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 			$ cp pki/private/p_patel.adu.directory.com.key custom_folder/
 
 			$ cd custom_folder/			
-```			
+
 	- Upload the server certificate & key and the client certificate & key to ACM.
 
-```
 		$ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt --region us-east-1
 
 		$ aws acm import-certificate --certificate fileb://a_naudiyal.adu.directory.com.crt --private-key fileb://a_naudiyal.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1
 		$ aws acm import-certificate --certificate fileb://r_kumar.adu.directory.com.crt --private-key fileb://r_kumar.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1
 		$ aws acm import-certificate --certificate fileb://p_patel.adu.directory.com.crt --private-key fileb://p_patel.adu.directory.com.key --certificate-chain fileb://ca.crt --region us-east-1		
-```
+
 
 
 ### Create AWS managed Microsoft Active Directory:
