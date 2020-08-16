@@ -262,7 +262,7 @@ Admin pass: ************
 - Enable end-user access to VPC **(Adding authorization rule)**  
 	Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
 
-	- Get the SID of the 'Client VPN' AD group that was created earlier.
+	- Get the SID of the 'Client VPN' AD group that was created earlier, from the AD management instance.
 
 	```
 	PS C:\Users\Admin> Get-adgroup -identity "Client VPN"
@@ -292,39 +292,37 @@ Admin pass: ************
 	- Applying Security Group:
 
 		These are used to limit access to applications. This securityGroup only controls the traffic egress from VPC associated ENIs.
-		To limit traffic that can route through VPC associated ENIs, restrictive authorizations can be used.
 
-		- WE will already have one securityGroup: sg-03fea951c537fbcb3 added there, which we selected earlier.
-		- WE can leverage the securityGroup we have applied to our VPN endpoint, as the source for traffic in other securityGroups.
+		- We will already have one securityGroup: sg-03fxxxxxxxxxcb3 added there, which we selected earlier.
+		- We can leverage this securityGroup we have applied to our VPN endpoint, as the source for traffic in other securityGroups.
 
 	- Add Routes:
 
 		Routes for associated VPC/Subnets are automatically added to the Client VPN Route table.
 
-		- If you want this VPC association to provide Internet connectivity to VPN clients (through NATGW / IGW), you need to add a default route of 0.0.0.0/0 to the route table. 
+		- You can also provide Internet connectivity to VPN clients (through NATGW / IGW), by adding a default route 0.0.0.0/0 to the route table. 
 
-				Route destination: 0.0.0.0/0
-				Target VPC subnet ID: subnet-d288c2b7
-				Description: Internet access for vpn clients
+			Route destination: 0.0.0.0/0
+			Target VPC subnet ID: subnet-d288c2b7
+			Description: Internet access for vpn clients
 
-
+		```	
 			Destination CIDR 			TargetSubnet			Type 		Origin
-
+			
 			10.0.0.0/16 				subnet-d288c2b7 		Nat 		associate
 			0.0.0.0/0 				    subnet-d288c2b7 		Nat 		add-route
 			10.0.0.0/16 				subnet-301beb78 		Nat 		associate
+		```
 
 		- If you now notice the Network interfaces in your account with Description "ClientVPN Endpoint resource", you will notice 3 different ENIs for each of above Routes, with public and private IP address.
 
-				eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104
-				eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100
-				eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53
+		eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104
+		eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100
+		eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53
 
-			Note: If your associated VPC have access to on-Prem resources, you can add a route your on-Prem network (100.200)
+	- Download Client Configuration
 
-- Download Client Configuration
-
-		downloaded-client-config.ovpn
+		**downloaded-client-config.ovpn**
 
 
 ### 4. Installed AWS VPN Client: https://aws.amazon.com/vpn/client-vpn-download/
