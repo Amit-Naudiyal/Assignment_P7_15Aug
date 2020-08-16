@@ -327,20 +327,20 @@ Admin pass: ************
 
 ### 4. Installed AWS VPN Client: https://aws.amazon.com/vpn/client-vpn-download/
 
-	- Created a Profile:
+- Created a Profile:
 
-			Name: vpn-endpoint-amitInfraVPC-public
-			VPN file: downloaded-client-config.ovpn
+	Name: vpn-endpoint-amitInfraVPC-public
+	VPN file: downloaded-client-config.ovpn
 
-	- Connect:
+- Connect:
 
-			Username: a_naudiyal
-			password: Redhat123#
+	Username: a_naudiyal
+	password: ********
 
-		CONNECTED
+**CONNECTED**
 
-		Client IP address allocated to my mac: 
+Client IP address allocated to my mac: 
 
-			utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
-			inet 172.16.0.162 --> 172.16.0.162 netmask 0xffffffe0 
+	utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
+	inet 172.16.0.162 --> 172.16.0.162 netmask 0xffffffe0 
 
