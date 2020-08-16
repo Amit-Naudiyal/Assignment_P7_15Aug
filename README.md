@@ -25,8 +25,10 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 - However, in case if you do not have any registered domain, you need to create a Self-signed certificate and upload it to ACM
 	
 	- Certificate Generation
+		```
 		$ git clone https://github.com/OpenVPN/easy-rsa.git
 		$ cd easy-rsa/easyrsa3
+		```
 
 		- initialize a new PKI environment:
 
