@@ -316,9 +316,9 @@ Admin pass: ************
 
 		- If you now notice the Network interfaces in your account with Description "ClientVPN Endpoint resource", you will notice 3 different ENIs for each of above Routes, with public and private IP address.
 
-		eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104
-		eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100
-		eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53
+		eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104  
+		eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100  
+		eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53  
 
 	- Download Client Configuration
 
@@ -329,7 +329,7 @@ Admin pass: ************
 
 - Created a Profile:
 
-	Name: vpn-endpoint-amitInfraVPC-public
+	Name: vpn-endpoint-amitInfraVPC-public  
 	VPN file: downloaded-client-config.ovpn
 
 - Connect:
