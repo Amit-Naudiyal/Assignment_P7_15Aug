@@ -211,7 +211,7 @@ Admin pass: ************
 						Group type: Security
 
 							Add a_naudiyal & r_kumar users into it.
-							Keep p_patel out of it.
+							Keep p_patel out of it for testing restriction.
 
 
 ### 3. Create Client VPN Endpoint: https://console.aws.amazon.com/vpc/home?region=us-east-1#ClientVPNEndpoints:sort=clientVpnEndpointId
