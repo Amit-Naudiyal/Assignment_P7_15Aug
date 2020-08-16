@@ -152,8 +152,8 @@ Admin pass: ************
 				AMI: Microsoft Windows Server 2019 Base - ami  
 				type: t2.medium  
 				Network: Use same VPC where AD is created and choose public subnet to have public IP, so we can login. (AutoAssign public IP: true)  
-					Domain: adu.directory.com
-					IAM Role: EC2DomainJoin
+				    Domain: adu.directory.com  
+				    IAM Role: EC2DomainJoin
 
 				create securityGroup:   
 					name: ad-mgmt-instance-securityGroup  
