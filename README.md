@@ -249,7 +249,7 @@ Admin pass: ************
 
 - Associate Client VPN endpoint to a Target Network:  
 	- We choose a VPC and subnet to create the association with our Client VPN endpoint.   
-	- Create VPN Association to Target network:
+	- Creating VPN Association to 2 different networks (public/private):
 	
 	```
 		VPC: vpc-b4255cd2
@@ -259,7 +259,7 @@ Admin pass: ************
 			(## Association ID : cvpn-assoc-03f7d4db5ef564684)
 	```
 
-- Enable end-user access to VPC (Add authorization rule)
+- Enable end-user access to VPC **(Adding authorization rule)**  
 	Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
 
 	- Get the SID of the 'Client VPN' AD group that was created earlier.
