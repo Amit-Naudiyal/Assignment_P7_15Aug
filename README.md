@@ -17,7 +17,7 @@
 
 ## Manual Process
 
-### Create ACM public certificate:
+### 1. Create ACM public certificate:
 
 To create a Client VPN endpoint, you must provision a server certificate in AWS Certificate Manager, regardless of the type of authentication you use. 
 
@@ -102,53 +102,50 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 		```
 
 
-### Create AWS managed Microsoft Active Directory:
+### 2. Create AWS managed Microsoft Active Directory:
 
-			Directory type: Microsoft AD (Standard edition)
-			Directory DNS name: adu.directory.com
-				(## FQDN what will resolve inside your VPC only. Does not need to be public resolvable.)
-			Directory NetBIOS name: ADU
-			Admin pass: m1cr0s0FtLog1n
-				(## Password for default administrator user named Admin)
+For this requierment, we will create one AWS Managed AD, with following settings:
 
-			VPC & Subnets : 
+Directory type: Microsoft AD (Standard edition)
+Directory DNS name: adu.directory.com
+	(## FQDN what will resolve inside your VPC only. Does not need to be public resolvable.)
+Directory NetBIOS name: ADU
+Admin pass: ************
+	(## Password for default administrator user named Admin)
 
-				Your directory adu.directory.com (d-90677f2629) is being created! This can take up to 20-45 minutes.
-				Availability Zones: us-east-1a, us-east-1c (public subnets)
+- VPC & Subnets : 
+	Your directory adu.directory.com (d-90XXXXXXX9) is being created! **This can take up to 20-45 minutes.**
+	Availability Zones: us-east-1a, us-east-1c (public/private subnets)
 
-				DNS: 192.168.11.138, 192.168.1.183
+		DNS: 192.168.11.138, 192.168.1.183
 
-			- 'Create' Application Access URL : adu.awsapps.com
-				(## public endpoint URL where users in this directory can gain access to your AWS applications and to your AWS Management Console.)
+	- 'Create' Application Access URL : adu.awsapps.com
+		(## public endpoint URL where users in this directory can gain access to your AWS applications and to your AWS Management Console.)
 
 	- Create users/Groups in MS-AD.
 
-		- To create users/groups in an AD, you must use any instance (from either on-premises or EC2) that has been joined to your AWS Directory Service directory, and be logged in as a user that has privileges to create users and groups. 
-		- You will also need to install the Active Directory Tools on your EC2 instance, using 'Active Directory Users and Computers' snap-in.
+		- To create users/groups in an AD, we will use one Windows EC2 instance that has been joined to the AWS Directory Service directory, and be logged in as a user that has privileges to create users and groups. 
+		- We will install the Active Directory Tools on this EC2 instance, using 'Active Directory Users and Computers' snap-in.
 
-		- Process 
-				(https://docs.aws.amazon.com/directoryservice/latest/admin-guide/microsoftadbasestep3.html)
+		- Process: 
 
-			- Creating DHCP options set: 
+			- **Creating DHCP options set**: 
 				name: aws-ds-dhcp
 				domain name: adu.directory.com
 				domain name servers: 192.168.11.138, 192.168.1.183, 192.168.0.2
 
-				dopt-0459fbfb6b1067d8d
+				dopt-045XXXXXXXXXd8d
 
 			- Go to VPC : created for above Managed AD.
 				Change its DHCP option set to created above
 
-					old: dopt-f2965695 | Private-Public-NAT
-					new: dopt-0459fbfb6b1067d8d
-
-			- Create IAM Role: To join EC2 windows to domain
+			- **Create IAM Role**: To join EC2 windows to domain, we will need SSMdirectoryService access permissions.
 
 				Trust relationship: EC2
 				Permission policy: AmazonSSMManagedInstanceCore, AmazonSSMDirectoryServiceAccess
 				Role Name: EC2DomainJoin
 
-			- Create EC2 instance & automatically join the directory:
+			- **Create EC2 instance & automatically join the directory**:
 
 				AMI: Microsoft Windows Server 2019 Base - ami
 				type: t2.medium
@@ -160,9 +157,14 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 					name: ad-mgmt-instance-securityGroup
 					3389 : my IP
 				
-				Public IP : 3.234.205.18  (AD managment instance)
+				Public IP : 3.XXX.XXX.18  (AD managment instance)
 
-			- Install Active Directory Tools
+			- **Install Active Directory Tools**
+
+				- Verify instance is joined to AD by login using above Admin username/password created in MS-AD.
+
+						username: adu.directory.com\Admin
+						pass: *********
 
 				- Login to the instance 
 					> Start Menu > Server Manager
@@ -195,7 +197,7 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 						
 						Install-WindowsFeature -Name GPMC,RSAT-AD-PowerShell,RSAT-AD-AdminCenter,RSAT-ADDS-Tools,RSAT-DNS-Server
 
-			- Create User:
+			- **Create Users**:
 
 					- Login with Domain Admin:
 							user: adu.directory.com\Admin
@@ -219,7 +221,7 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 								Keep p_patel out of it.
 
 
-### Create Client VPN Endpoint: https://console.aws.amazon.com/vpc/home?region=us-east-1#ClientVPNEndpoints:sort=clientVpnEndpointId
+### 3. Create Client VPN Endpoint: https://console.aws.amazon.com/vpc/home?region=us-east-1#ClientVPNEndpoints:sort=clientVpnEndpointId
 
 			Name: vpn-endpoint-amitInfraVPC-public
 			Description: vpn-endpoint-amitInfraVPC-public
@@ -227,12 +229,12 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 				(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)
 
 			Authentication:
-				Server Certificate ARN: arn:aws:acm:us-east-1:728135289732:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
+				Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
 						(## Imported Server certificate)
 
 				Authentication Option: Use user-based authentication > Active Directory authentication
 
-						Directory ID: d-90677f2629  (from above)
+						Directory ID: d-90XXXXXXX9  (from above)
 
 			Connection logging: 
 					Log Group: /adu.directory.com-logs/
@@ -330,7 +332,7 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 			downloaded-client-config.ovpn
 
 
-### Installed AWS VPN Client: https://aws.amazon.com/vpn/client-vpn-download/
+### 4. Installed AWS VPN Client: https://aws.amazon.com/vpn/client-vpn-download/
 
 	- Created a Profile:
 
