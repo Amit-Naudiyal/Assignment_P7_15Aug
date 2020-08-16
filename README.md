@@ -214,115 +214,115 @@ Admin pass: ************
 							Keep p_patel out of it for testing restriction.
 
 
-### 3. Create Client VPN Endpoint: https://console.aws.amazon.com/vpc/home?region=us-east-1#ClientVPNEndpoints:sort=clientVpnEndpointId
+### 3. Create Client VPN Endpoint:
 
-			Name: vpn-endpoint-amitInfraVPC-public
-			Description: vpn-endpoint-amitInfraVPC-public
-			Client IPv4 CIDR: 172.16.0.0/22
-				(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)
+Name: vpn-endpoint-amitInfraVPC-public  
+Description: vpn-endpoint-amitInfraVPC-public  
+Client IPv4 CIDR: 172.16.0.0/22  
+	_(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)_  
 
-			Authentication:
-				Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
-						(## Imported Server certificate)
+Authentication: 
+	Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
+		_(## Imported Server certificate)_  
 
-				Authentication Option: Use user-based authentication > Active Directory authentication
+	Authentication Option: Use user-based authentication > Active Directory authentication  
 
-						Directory ID: d-90XXXXXXX9  (from above)
+			Directory ID: d-90XXXXXXX9  (from above)
 
-			Connection logging: 
-					Log Group: /adu.directory.com-logs/
-					Stream: first-stream
+Connection logging:   
+		Log Group: /adu.directory.com-logs/  
+		Stream: first-stream  
 
-			Other
-				DNS Server 1 Ip address: 192.168.11.138  (from above)
-				DNS Server 2 Ip address: 192.168.1.183   (from above)
+Other
+	DNS Server 1 Ip address: 192.168.11.138  (from above)
+	DNS Server 2 Ip address: 192.168.1.183   (from above)
 
-				Transport: udp
-				VPC ID:
-					SecurityGroup: sg-03fea951c537fbcb3 (vpn-endpoint-security-group)
-				VPN Port: 443
+	Transport: udp
+	VPC ID:
+		SecurityGroup: sg-03fea951c537fbcb3 (vpn-endpoint-security-group)
+	VPN Port: 443
 
-		> Once you create VPN endpoint, it will be in 'Pending-associate' status. 
-			- This means we can now associate the VPN endpoint with one or more VPCs.
+	> Once you create VPN endpoint, it will be in 'Pending-associate' status. 
+		- This means we can now associate the VPN endpoint with one or more VPCs.
 
-		- Associate Client VPN endpoint to a Target Network:
-			- We choose a VPC and subnet to create the association with our Client VPN endpoint. 
-			- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
+	- Associate Client VPN endpoint to a Target Network:
+		- We choose a VPC and subnet to create the association with our Client VPN endpoint. 
+		- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
 
-			- Create VPN Association to Target network:
-				VPC: vpc-b4255cd2
-				Subnet: subnet-d288c2b7  (amitInfra-public3)
-					(## Association ID : cvpn-assoc-0d711a1045d6c2d7b)
+		- Create VPN Association to Target network:
+			VPC: vpc-b4255cd2
+			Subnet: subnet-d288c2b7  (amitInfra-public3)
+				(## Association ID : cvpn-assoc-0d711a1045d6c2d7b)
 
-				Subnet: subnet-301beb78  (amitInfra-pvt2)	
-					(## Association ID : cvpn-assoc-03f7d4db5ef564684)				
-
-
-		- Enable end-user access to VPC (Add authorization rule)
-			Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
-
-			- Get the SID of the 'Client VPN' AD group that was created earlier.
-
-				PS C:\Users\Admin> Get-adgroup -identity "Client VPN"
-
-				DistinguishedName : CN=Client VPN,OU=Users,OU=adu,DC=adu,DC=directory,DC=com
-				GroupCategory     : Security
-				GroupScope        : Global
-				Name              : Client VPN
-				ObjectClass       : group
-				ObjectGUID        : 85c51f1a-08fd-45fd-8506-87d468116002
-				SamAccountName    : Client VPN
-				SID               : S-1-5-21-3319784565-47933065-3989491047-2113  		<<=====
-
-			- Client VPN Endpoints > Select your VPN endpoint > Authorization > Authorize Ingress
-
-				Client VPN endpoint ID: cvpn-endpoint-095af903f2f1327c9
-				Destination network to enable: 0.0.0.0/0   (IP address/range which can access this endpoint. You can restrict it to specific IP range/address)
-				Grant access to: 
-					Allow access to users in a specified access group
-
-						Access Group ID: S-1-5-21-3319784565-47933065-3989491047-2113
-
-				Description: Client VPN AD Group
-
-				Note: Now users belonging to 'Client VPN' AD group are authorized to route all traffic through the VPN client endpoint.
-
-		- Applying Security Group:
-
-			These are used to limit access to applications. This securityGroup only controls the traffic egress from VPC associated ENIs.
-			To limit traffic that can route through VPC associated ENIs, restrictive authorizations can be used.
-
-			- WE will already have one securityGroup: sg-03fea951c537fbcb3 added there, which we selected earlier.
-			- WE can leverage the securityGroup we have applied to our VPN endpoint, as the source for traffic in other securityGroups.
-
-		- Add Routes:
-
-			Routes for associated VPC/Subnets are automatically added to the Client VPN Route table.
-
-			- If you want this VPC association to provide Internet connectivity to VPN clients (through NATGW / IGW), you need to add a default route of 0.0.0.0/0 to the route table. 
-
-					Route destination: 0.0.0.0/0
-					Target VPC subnet ID: subnet-d288c2b7
-					Description: Internet access for vpn clients
+			Subnet: subnet-301beb78  (amitInfra-pvt2)	
+				(## Association ID : cvpn-assoc-03f7d4db5ef564684)				
 
 
-				Destination CIDR 			TargetSubnet			Type 		Origin
+	- Enable end-user access to VPC (Add authorization rule)
+		Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
 
-				10.0.0.0/16 				subnet-d288c2b7 		Nat 		associate
-				0.0.0.0/0 				    subnet-d288c2b7 		Nat 		add-route
-				10.0.0.0/16 				subnet-301beb78 		Nat 		associate
+		- Get the SID of the 'Client VPN' AD group that was created earlier.
 
-			- If you now notice the Network interfaces in your account with Description "ClientVPN Endpoint resource", you will notice 3 different ENIs for each of above Routes, with public and private IP address.
+			PS C:\Users\Admin> Get-adgroup -identity "Client VPN"
 
-					eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104
-					eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100
-					eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53
+			DistinguishedName : CN=Client VPN,OU=Users,OU=adu,DC=adu,DC=directory,DC=com
+			GroupCategory     : Security
+			GroupScope        : Global
+			Name              : Client VPN
+			ObjectClass       : group
+			ObjectGUID        : 85c51f1a-08fd-45fd-8506-87d468116002
+			SamAccountName    : Client VPN
+			SID               : S-1-5-21-3319784565-47933065-3989491047-2113  		<<=====
 
-				Note: If your associated VPC have access to on-Prem resources, you can add a route your on-Prem network (100.200)
+		- Client VPN Endpoints > Select your VPN endpoint > Authorization > Authorize Ingress
 
-	- Download Client Configuration
+			Client VPN endpoint ID: cvpn-endpoint-095af903f2f1327c9
+			Destination network to enable: 0.0.0.0/0   (IP address/range which can access this endpoint. You can restrict it to specific IP range/address)
+			Grant access to: 
+				Allow access to users in a specified access group
 
-			downloaded-client-config.ovpn
+					Access Group ID: S-1-5-21-3319784565-47933065-3989491047-2113
+
+			Description: Client VPN AD Group
+
+			Note: Now users belonging to 'Client VPN' AD group are authorized to route all traffic through the VPN client endpoint.
+
+	- Applying Security Group:
+
+		These are used to limit access to applications. This securityGroup only controls the traffic egress from VPC associated ENIs.
+		To limit traffic that can route through VPC associated ENIs, restrictive authorizations can be used.
+
+		- WE will already have one securityGroup: sg-03fea951c537fbcb3 added there, which we selected earlier.
+		- WE can leverage the securityGroup we have applied to our VPN endpoint, as the source for traffic in other securityGroups.
+
+	- Add Routes:
+
+		Routes for associated VPC/Subnets are automatically added to the Client VPN Route table.
+
+		- If you want this VPC association to provide Internet connectivity to VPN clients (through NATGW / IGW), you need to add a default route of 0.0.0.0/0 to the route table. 
+
+				Route destination: 0.0.0.0/0
+				Target VPC subnet ID: subnet-d288c2b7
+				Description: Internet access for vpn clients
+
+
+			Destination CIDR 			TargetSubnet			Type 		Origin
+
+			10.0.0.0/16 				subnet-d288c2b7 		Nat 		associate
+			0.0.0.0/0 				    subnet-d288c2b7 		Nat 		add-route
+			10.0.0.0/16 				subnet-301beb78 		Nat 		associate
+
+		- If you now notice the Network interfaces in your account with Description "ClientVPN Endpoint resource", you will notice 3 different ENIs for each of above Routes, with public and private IP address.
+
+				eni-014f5c761311d6786 : subnet-301beb78 : 3.234.159.254 : 10.0.12.104
+				eni-03dd5c6c09067b0e5 : subnet-d288c2b7 : 3.215.53.31 : 10.0.3.100
+				eni-07b306df5667e10bf : subnet-d288c2b7 : 54.161.153.42 : 10.0.3.53
+
+			Note: If your associated VPC have access to on-Prem resources, you can add a route your on-Prem network (100.200)
+
+- Download Client Configuration
+
+		downloaded-client-config.ovpn
 
 
 ### 4. Installed AWS VPN Client: https://aws.amazon.com/vpn/client-vpn-download/
