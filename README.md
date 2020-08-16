@@ -247,10 +247,8 @@ Admin pass: ************
 - Once you create VPN endpoint, it will be in **'Pending-associate'** status. 
 	- This means we can now associate the VPN endpoint with one or more VPCs.
 
-- Associate Client VPN endpoint to a Target Network:
-	- We choose a VPC and subnet to create the association with our Client VPN endpoint. 
-	- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
-
+- Associate Client VPN endpoint to a Target Network:  
+	- We choose a VPC and subnet to create the association with our Client VPN endpoint.   
 	- Create VPN Association to Target network:
 	
 	```
@@ -279,17 +277,17 @@ Admin pass: ************
 	```
 
 - Client VPN Endpoints > Select your VPN endpoint > Authorization > Authorize Ingress
+	
+	```
+	Client VPN endpoint ID: cvpn-endpoint-095af903f2f1327c9
+	Destination network to enable: 0.0.0.0/0   (IP address/range which can access this endpoint. You can restrict it to specific IP range/address)
+	Grant access to: 
+		Allow access to users in a specified access group
+			Access Group ID: S-1-5-21-3319784565-47933065-3989491047-2113
+	Description: Client VPN AD Group
+	```
 
-			Client VPN endpoint ID: cvpn-endpoint-095af903f2f1327c9
-			Destination network to enable: 0.0.0.0/0   (IP address/range which can access this endpoint. You can restrict it to specific IP range/address)
-			Grant access to: 
-				Allow access to users in a specified access group
-
-					Access Group ID: S-1-5-21-3319784565-47933065-3989491047-2113
-
-			Description: Client VPN AD Group
-
-			Note: Now users belonging to 'Client VPN' AD group are authorized to route all traffic through the VPN client endpoint.
+	Note: Now users belonging to 'Client VPN' AD group are authorized to route all traffic through the VPN client endpoint.
 
 	- Applying Security Group:
 
