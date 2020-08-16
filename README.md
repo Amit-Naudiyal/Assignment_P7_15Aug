@@ -216,7 +216,8 @@ Admin pass: ************
 
 ### 3. Create Client VPN Endpoint:
 
-- Create VPN endoint using: 
+- Create VPN endoint using:   
+  
 	Name: vpn-endpoint-amitInfraVPC-public  
 	Description: vpn-endpoint-amitInfraVPC-public  
 	Client IPv4 CIDR: 172.16.0.0/22  
@@ -243,7 +244,7 @@ Admin pass: ************
 			SecurityGroup: sg-03XXXXXXXXXb3 (vpn-endpoint-security-group)
 		VPN Port: 443
 
-- Once you create VPN endpoint, it will be in 'Pending-associate' status. 
+- Once you create VPN endpoint, it will be in **'Pending-associate'** status. 
 	- This means we can now associate the VPN endpoint with one or more VPCs.
 
 - Associate Client VPN endpoint to a Target Network:
@@ -251,13 +252,14 @@ Admin pass: ************
 	- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
 
 	- Create VPN Association to Target network:
+	
+	```
 		VPC: vpc-b4255cd2
 		Subnet: subnet-d288c2b7  (amitInfra-public3)
 			(## Association ID : cvpn-assoc-0d711a1045d6c2d7b)
-
 		Subnet: subnet-301beb78  (amitInfra-pvt2)	
-			(## Association ID : cvpn-assoc-03f7d4db5ef564684)				
-
+			(## Association ID : cvpn-assoc-03f7d4db5ef564684)
+	```
 
 	- Enable end-user access to VPC (Add authorization rule)
 		Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
