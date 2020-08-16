@@ -194,7 +194,7 @@ Admin pass: ************
 
 				- Login with Domain Admin:  
 						user: adu.directory.com\Admin  
-						pass: m1cr0s0FtLog1n
+						pass: *********
 
 				- Start > Windows Administrative Tools > Active Directory Users & Computers  
 
