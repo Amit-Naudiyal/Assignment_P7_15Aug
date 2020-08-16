@@ -121,9 +121,9 @@ Admin pass: ************
 		DNS: 192.168.11.138, 192.168.1.183
 
 	- 'Create' Application Access URL : adu.awsapps.com  
-		(## public endpoint URL where users in this directory can gain access to your AWS applications and to your AWS Management Console.)
+		_(## public endpoint URL where users in this directory can gain access to your AWS applications and to your AWS Management Console.)_  
 
-	- Create users/Groups in MS-AD.
+	- **Create users/Groups in MS-AD**.
 
 		- To create users/groups in an AD, we will use one Windows EC2 instance that has been joined to the AWS Directory Service directory, and be logged in as a user that has privileges to create users and groups. 
 		- We will install the Active Directory Tools on this EC2 instance, using 'Active Directory Users and Computers' snap-in.
