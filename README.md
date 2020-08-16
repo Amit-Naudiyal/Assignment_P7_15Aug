@@ -261,23 +261,24 @@ Admin pass: ************
 			(## Association ID : cvpn-assoc-03f7d4db5ef564684)
 	```
 
-	- Enable end-user access to VPC (Add authorization rule)
-		Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
+- Enable end-user access to VPC (Add authorization rule)
+	Authorization rule controls which set of users can access to specified network through Client VPN endpoint.
 
-		- Get the SID of the 'Client VPN' AD group that was created earlier.
+	- Get the SID of the 'Client VPN' AD group that was created earlier.
 
-			PS C:\Users\Admin> Get-adgroup -identity "Client VPN"
+	```
+	PS C:\Users\Admin> Get-adgroup -identity "Client VPN"
+	DistinguishedName : CN=Client VPN,OU=Users,OU=adu,DC=adu,DC=directory,DC=com
+	GroupCategory     : Security
+	GroupScope        : Global
+	Name              : Client VPN
+	ObjectClass       : group
+	ObjectGUID        : 85c51f1a-08fd-45fd-8506-87d468116002
+	SamAccountName    : Client VPN
+	SID               : S-1-5-21-3319784565-47933065-3989491047-2113  		<<=====
+	```
 
-			DistinguishedName : CN=Client VPN,OU=Users,OU=adu,DC=adu,DC=directory,DC=com
-			GroupCategory     : Security
-			GroupScope        : Global
-			Name              : Client VPN
-			ObjectClass       : group
-			ObjectGUID        : 85c51f1a-08fd-45fd-8506-87d468116002
-			SamAccountName    : Client VPN
-			SID               : S-1-5-21-3319784565-47933065-3989491047-2113  		<<=====
-
-		- Client VPN Endpoints > Select your VPN endpoint > Authorization > Authorize Ingress
+- Client VPN Endpoints > Select your VPN endpoint > Authorization > Authorize Ingress
 
 			Client VPN endpoint ID: cvpn-endpoint-095af903f2f1327c9
 			Destination network to enable: 0.0.0.0/0   (IP address/range which can access this endpoint. You can restrict it to specific IP range/address)
