@@ -192,26 +192,26 @@ Admin pass: ************
 
 			- **Create Users**:
 
-					- Login with Domain Admin:
-							user: adu.directory.com\Admin
-							pass: m1cr0s0FtLog1n
+				- Login with Domain Admin:  
+						user: adu.directory.com\Admin  
+						pass: m1cr0s0FtLog1n
 
-					- Start > Windows Administrative Tools > Active Directory Users & Computers
+				- Start > Windows Administrative Tools > Active Directory Users & Computers  
 
-						adu.directory.com > adu > Users
+					adu.directory.com > adu > Users
 
-							First/Last/UserLogon/pass: Amit / Naudiyal / a_naudiyal / Redhat123#    @adu.directory.com
-							First/Last/UserLogon/pass: Ramesh / Kumar / r_kumar / Redhat123#		@adu.directory.com
-							First/Last/UserLogon/pass: Parikshit / Patel / p_patel / Redhat123#  	@adu.directory.com
+						First/Last/UserLogon/pass: Amit / Naudiyal / a_naudiyal / Redhat123#    @adu.directory.com
+						First/Last/UserLogon/pass: Ramesh / Kumar / r_kumar / Redhat123#		@adu.directory.com
+						First/Last/UserLogon/pass: Parikshit / Patel / p_patel / Redhat123#  	@adu.directory.com
 
-						adu.directory.com > adu > Groups
+					adu.directory.com > adu > Groups
 
-							Group name: Client VPN
-							Group scope: Global
-							Group type: Security
+						Group name: Client VPN
+						Group scope: Global
+						Group type: Security
 
-								Add a_naudiyal & r_kumar users into it.
-								Keep p_patel out of it.
+							Add a_naudiyal & r_kumar users into it.
+							Keep p_patel out of it.
 
 
 ### 3. Create Client VPN Endpoint: https://console.aws.amazon.com/vpc/home?region=us-east-1#ClientVPNEndpoints:sort=clientVpnEndpointId
