@@ -138,25 +138,25 @@ Admin pass: ************
 
 				dopt-045XXXXXXXXXd8d
 
-			- Go to VPC : created for above Managed AD.
+			- Go to VPC : created for above Managed AD.  
 				Change its DHCP option set to created above
 
 			- **Create IAM Role**: To join EC2 windows to domain, we will need SSMdirectoryService access permissions.
 
-				Trust relationship: EC2
-				Permission policy: AmazonSSMManagedInstanceCore, AmazonSSMDirectoryServiceAccess
+				Trust relationship: EC2  
+				Permission policy: AmazonSSMManagedInstanceCore, AmazonSSMDirectoryServiceAccess  
 				Role Name: EC2DomainJoin
 
 			- **Create EC2 instance & automatically join the directory**:
 
-				AMI: Microsoft Windows Server 2019 Base - ami
-				type: t2.medium
-				Network: Use same VPC where AD is created and choose public subnet to have public IP, so we can login. (AutoAssign public IP: true)
+				AMI: Microsoft Windows Server 2019 Base - ami  
+				type: t2.medium  
+				Network: Use same VPC where AD is created and choose public subnet to have public IP, so we can login. (AutoAssign public IP: true)  
 					Domain: adu.directory.com
 					IAM Role: EC2DomainJoin
 
-				create securityGroup: 
-					name: ad-mgmt-instance-securityGroup
+				create securityGroup:   
+					name: ad-mgmt-instance-securityGroup  
 					3389 : my IP
 				
 				Public IP : 3.XXX.XXX.18  (AD managment instance)
