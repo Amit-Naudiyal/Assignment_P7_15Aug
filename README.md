@@ -133,7 +133,8 @@ Admin pass: ************
 			- **Creating DHCP options set**: 
 				name: aws-ds-dhcp
 				domain name: adu.directory.com
-				domain name servers: 192.168.11.138, 192.168.1.183, 192.168.0.2
+				domain name servers: 192.168.11.138, 192.168.1.183, 192.168.0.2  
+					_Note: Also using VPC resolver as one of the DNS server_
 
 				dopt-045XXXXXXXXXd8d
 
