@@ -25,16 +25,20 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 - However, in case if you do not have any registered domain, you need to create a Self-signed certificate and upload it to ACM
 	
 	- Certificate Generation
+
 		$ git clone https://github.com/OpenVPN/easy-rsa.git
 		$ cd easy-rsa/easyrsa3
 
 		- initialize a new PKI environment:
+
 			$ ./easyrsa init-pki
 		
 		- build a new certification authority (CA):
+
 			$ ./easyrsa build-ca nopass 
 
 		- generate the server-side certificate and key:
+
 			$ ./easyrsa build-server-full server nopass
 
 				Using SSL: openssl LibreSSL 2.8.3
@@ -59,23 +63,13 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 			$ ./easyrsa build-client-full r_kumar.adu.directory.com nopass
 			$ ./easyrsa build-client-full p_patel.adu.directory.com nopass
 
-					.....
-					Using SSL: openssl LibreSSL 2.8.3
-					Generating a 2048 bit RSA private key
-					.........................+++
-					...............+++
-					writing new private key to '/Users/anaudiya/personal/Others/Interview/PolarSeven/Assignment_15 Aug/workspace/easy-rsa/easyrsa3/pki/easy-rsa-94038.Y0qVld/tmp.NoegfO'
-					-----
-					Using configuration from /Users/anaudiya/personal/Others/Interview/PolarSeven/Assignment_15 Aug/workspace/easy-rsa/easyrsa3/pki/easy-rsa-94038.Y0qVld/tmp.CjezMa
-					Check that the request matches the signature
-					Signature ok
-					The Subject's Distinguished Name is as follows
-					commonName            :ASN.1 12:'a_naudiyal.adu.directory.com'
-					Certificate is to be certified until Nov 18 16:30:09 2022 GMT (825 days)
-
-					Write out database with 1 new entries
-					Data Base Updated
-					.....
+				.....
+				The Subject's Distinguished Name is as follows
+				commonName            :ASN.1 12:'a_naudiyal.adu.directory.com'
+				commonName            :ASN.1 12:'r_kumar.adu.directory.com'
+				commonName            :ASN.1 12:'p_patel.adu.directory.com'
+				Certificate is to be certified until Nov 18 16:30:09 2022 GMT (825 days)
+				.....
 
 	- Copy the server certificate and key & client certificate(s) and Key to a custom folder, for easy usage for next command.
 
