@@ -182,22 +182,13 @@ Admin pass: ************
 
 					> Install
 
-					- When the feature installation is finished, the following new tools or snap-ins will be available in the Windows Administrative Tools folder in the Start menu.
-
-						    Active Directory Administrative Center
-						    Active Directory Domains and Trusts
-						    Active Directory Module for Windows PowerShell
-						    Active Directory Sites and Services
-						    Active Directory Users and Computers
-						    ADSI Edit
-						    DNS
-						    Group Policy Management
-
 				- Install AD tools
 
 					- Start windows power shell, and type:
 						
+						```
 						Install-WindowsFeature -Name GPMC,RSAT-AD-PowerShell,RSAT-AD-AdminCenter,RSAT-ADDS-Tools,RSAT-DNS-Server
+						```
 
 			- **Create Users**:
 
