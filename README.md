@@ -334,7 +334,7 @@ Admin pass: ************
 
 - Connect:
 
-	Username: a_naudiyal
+	Username: a_naudiyal  
 	password: ********
 
 **CONNECTED**
