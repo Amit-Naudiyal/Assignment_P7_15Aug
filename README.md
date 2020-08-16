@@ -106,12 +106,12 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 
 For this requierment, we will create one AWS Managed AD, with following settings:
 
-Directory type: Microsoft AD (Standard edition)
-Directory DNS name: adu.directory.com
+* Directory type: Microsoft AD (Standard edition)
+* Directory DNS name: adu.directory.com
 	(## FQDN what will resolve inside your VPC only. Does not need to be public resolvable.)
-Directory NetBIOS name: ADU
-Admin pass: ************
-	(## Password for default administrator user named Admin)
+* Directory NetBIOS name: ADU
+* Admin pass: ************
+	* (## Password for default administrator user named Admin)
 
 - VPC & Subnets : 
 	Your directory adu.directory.com (d-90XXXXXXX9) is being created! **This can take up to 20-45 minutes.**
