@@ -223,9 +223,9 @@ Admin pass: ************
 	Client IPv4 CIDR: 172.16.0.0/22  
 		_(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)_  
 
-	Authentication: 
-		Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
-			_(## Imported Server certificate)_  
+	Authentication:   
+	    Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
+		  _(## Imported Server certificate)_  
 
 	Authentication Option: Use user-based authentication > Active Directory authentication  
 
@@ -235,9 +235,9 @@ Admin pass: ************
 		Log Group: /adu.directory.com-logs/  
 		Stream: first-stream  
 
-	Other
-		DNS Server 1 Ip address: 192.168.11.138  (from above)  
-		DNS Server 2 Ip address: 192.168.1.183   (from above)  
+	Other:  
+        DNS Server 1 Ip address: 192.168.11.138  (from above)  
+        DNS Server 2 Ip address: 192.168.1.183   (from above)  
 
 		Transport: udp
 		VPC ID:
