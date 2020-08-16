@@ -115,12 +115,12 @@ Admin pass: ************
 
 
 - VPC & Subnets : 
-	Your directory adu.directory.com (d-90XXXXXXX9) is being created! **This can take up to 20-45 minutes.**
+	Your directory adu.directory.com (d-90XXXXXXX9) is being created! **This can take up to 20-45 minutes.**  
 	Availability Zones: us-east-1a, us-east-1c (public/private subnets)
 
 		DNS: 192.168.11.138, 192.168.1.183
 
-	- 'Create' Application Access URL : adu.awsapps.com
+	- 'Create' Application Access URL : adu.awsapps.com  
 		(## public endpoint URL where users in this directory can gain access to your AWS applications and to your AWS Management Console.)
 
 	- Create users/Groups in MS-AD.
