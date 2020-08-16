@@ -200,9 +200,9 @@ Admin pass: ************
 
 					adu.directory.com > adu > Users
 
-						First/Last/UserLogon/pass: Amit / Naudiyal / a_naudiyal / Redhat123#    @adu.directory.com
-						First/Last/UserLogon/pass: Ramesh / Kumar / r_kumar / Redhat123#		@adu.directory.com
-						First/Last/UserLogon/pass: Parikshit / Patel / p_patel / Redhat123#  	@adu.directory.com
+						First/Last/UserLogon/pass: Amit / Naudiyal / a_naudiyal / ********      @adu.directory.com
+						First/Last/UserLogon/pass: Ramesh / Kumar / r_kumar / ********		@adu.directory.com
+						First/Last/UserLogon/pass: Parikshit / Patel / p_patel / ********  	@adu.directory.com
 
 					adu.directory.com > adu > Groups
 
