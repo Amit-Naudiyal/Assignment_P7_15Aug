@@ -339,8 +339,14 @@ Admin pass: ************
 
 **CONNECTED**
 
-Client IP address allocated to my mac: 
+- Client IP address allocated to my mac: 
 
 	utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
 	inet 172.16.0.162 --> 172.16.0.162 netmask 0xffffffe0 
+
+- Able to connect the Instance(s) in Target Subnet on their private IP:
+
+	```
+	ssh -i <path/to/privateKey> ec2-user@10.0.12.69
+	```
 
