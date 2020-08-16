@@ -1,0 +1,18 @@
+
+Assignment:
+	
+	- Please present the following solution deployed on the AWS platform with the following requirements.
+
+	- Solution: 
+		- Git repository of a working Cloudformation stack(s) of a:
+		- AWS Client VPN Deployment backed by AWS Managed AD hosted in a new VPC following VPC best practises.
+	
+	- Components would include:
+		VPC
+		Security Groups
+		AWS Client VPN
+		ACM Certificate
+		AWS Managed AD
+		EC2 instance to test connected VPN connectivity (this can be manually created in console)
+
+
