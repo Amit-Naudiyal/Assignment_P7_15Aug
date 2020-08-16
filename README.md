@@ -341,7 +341,7 @@ Admin pass: ************
 
 - Client IP address allocated to my mac: 
 
-	utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
+	utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500  
 	inet 172.16.0.162 --> 172.16.0.162 netmask 0xffffffe0 
 
 - Able to connect the Instance(s) in Target Subnet on their private IP:
