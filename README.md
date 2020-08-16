@@ -58,11 +58,13 @@ To create a Client VPN endpoint, you must provision a server certificate in AWS 
 				Write out database with 1 new entries
 				Data Base Updated
 
-		- generate the client-side certificate and key: (WILL BE PERFORMED FOR EACH USER: a_naudiyal, r_kumar & p_patel)
-		
-			$ ./easyrsa build-client-full a_naudiyal.adu.directory.com nopass
+		- generate the client-side certificate and key: _(WILL BE PERFORMED FOR EACH USER: a_naudiyal, r_kumar & p_patel)_
+			
+			```
+			$ ./easyrsa build-client-full a_naudiyal.adu.directory.com nopass			
 			$ ./easyrsa build-client-full r_kumar.adu.directory.com nopass
 			$ ./easyrsa build-client-full p_patel.adu.directory.com nopass
+			```
 
 				.....
 				The Subject's Distinguished Name is as follows
