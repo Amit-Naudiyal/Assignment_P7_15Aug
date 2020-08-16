@@ -216,46 +216,47 @@ Admin pass: ************
 
 ### 3. Create Client VPN Endpoint:
 
-Name: vpn-endpoint-amitInfraVPC-public  
-Description: vpn-endpoint-amitInfraVPC-public  
-Client IPv4 CIDR: 172.16.0.0/22  
-	_(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)_  
+- Create VPN endoint using: 
+	Name: vpn-endpoint-amitInfraVPC-public  
+	Description: vpn-endpoint-amitInfraVPC-public  
+	Client IPv4 CIDR: 172.16.0.0/22  
+		_(## Subnet range, from which Client IP address will be allocated. Must be different than the IP of the resources which will be connected via VPN)_  
 
-Authentication: 
-	Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
-		_(## Imported Server certificate)_  
+	Authentication: 
+		Server Certificate ARN: arn:aws:acm:us-east-1:XXXXXXXXXXXX:certificate/6fb9fd21-5457-4c54-91b8-db9d028648e0
+			_(## Imported Server certificate)_  
 
 	Authentication Option: Use user-based authentication > Active Directory authentication  
 
-			Directory ID: d-90XXXXXXX9  (from above)
+		Directory ID: d-90XXXXXXX9  (from above)
 
-Connection logging:   
+	Connection logging:   
 		Log Group: /adu.directory.com-logs/  
 		Stream: first-stream  
 
-Other
-	DNS Server 1 Ip address: 192.168.11.138  (from above)
-	DNS Server 2 Ip address: 192.168.1.183   (from above)
+	Other
+		DNS Server 1 Ip address: 192.168.11.138  (from above)  
+		DNS Server 2 Ip address: 192.168.1.183   (from above)  
 
-	Transport: udp
-	VPC ID:
-		SecurityGroup: sg-03fea951c537fbcb3 (vpn-endpoint-security-group)
-	VPN Port: 443
+		Transport: udp
+		VPC ID:
+			SecurityGroup: sg-03XXXXXXXXXb3 (vpn-endpoint-security-group)
+		VPN Port: 443
 
-	> Once you create VPN endpoint, it will be in 'Pending-associate' status. 
-		- This means we can now associate the VPN endpoint with one or more VPCs.
+- Once you create VPN endpoint, it will be in 'Pending-associate' status. 
+	- This means we can now associate the VPN endpoint with one or more VPCs.
 
-	- Associate Client VPN endpoint to a Target Network:
-		- We choose a VPC and subnet to create the association with our Client VPN endpoint. 
-		- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
+- Associate Client VPN endpoint to a Target Network:
+	- We choose a VPC and subnet to create the association with our Client VPN endpoint. 
+	- you can associate client VPC endpoint to multiple subnets, provide it belongs to the same VPC and in a different AZ.
 
-		- Create VPN Association to Target network:
-			VPC: vpc-b4255cd2
-			Subnet: subnet-d288c2b7  (amitInfra-public3)
-				(## Association ID : cvpn-assoc-0d711a1045d6c2d7b)
+	- Create VPN Association to Target network:
+		VPC: vpc-b4255cd2
+		Subnet: subnet-d288c2b7  (amitInfra-public3)
+			(## Association ID : cvpn-assoc-0d711a1045d6c2d7b)
 
-			Subnet: subnet-301beb78  (amitInfra-pvt2)	
-				(## Association ID : cvpn-assoc-03f7d4db5ef564684)				
+		Subnet: subnet-301beb78  (amitInfra-pvt2)	
+			(## Association ID : cvpn-assoc-03f7d4db5ef564684)				
 
 
 	- Enable end-user access to VPC (Add authorization rule)
